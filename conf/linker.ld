@@ -35,6 +35,16 @@ SECTIONS {
         PROVIDE(__data_end = .); 
     }
 
+    .tdata : {
+        . = ALIGN(4K);
+        PROVIDE(__tdata_start = .);
+        
+        *(.tdata .tdata.* .tbss .tbss.*);
+
+        . = ALIGN(4K);
+        PROVIDE(__tdata_end = .);
+    }
+
     PROVIDE(__bss_start = .);
     .sbss : {
         *(.sbss .sbss.*);
@@ -45,16 +55,6 @@ SECTIONS {
     }
     . = ALIGN(4K);
     PROVIDE(__bss_end = .);
-
-    .tdata : {
-        . = ALIGN(4K);
-        PROVIDE(__tdata_start = .);
-        
-        *(.tdata .tdata.* .tbss .tbss.*);
-
-        . = ALIGN(4K);
-        PROVIDE(__tdata_end = .);
-    }
 
     . = ALIGN(2M);
     PROVIDE(KERNEL_END = .);

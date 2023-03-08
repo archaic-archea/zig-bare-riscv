@@ -1,25 +1,43 @@
-const limine = @import("limine");
+const limine = @import("limine.zig");
+const std = @import("std");
+const io = @import("writer.zig");
 
-pub export const boot_info: limine.BootloaderInfo.Request = .{};
-const uart: *volatile u8 = @intToPtr(*volatile u8, 0x1000_0000);
+pub export var boot_info: limine.BootloaderInfoRequest = .{};
 
 export fn kmain() void {
-    uart.* = 'a';
+    var uart = io.Uart{};
+    var writer = uart.writer();
 
-    uart.* = '\n';
+    if (boot_info.response) |result| {
+        var info_response = result.*;
+
+        if (writer.print("Boot info supplied: {s} version: {s}", .{info_response.name, info_response.version})) |_| {
+        } else {
+            kpanic("Failed to write");
+        }
+        //print_str("Boot info supplied");
+        //print_str(std.mem.span(info_response.name));
+        //print_str(std.mem.span(info_response.version));
+    } else {
+        kpanic("Failed to get response to boot info request");
+    }
+
+    if (writer.print("Kernel end reached", .{})) |_| {
+    } else {
+        kpanic("Failed to write");
+    }
 
     while (true) {}
 }
 
-fn print_hex(num: anytype) void {
-    var num_cpy = num;
+fn kpanic(string: []const u8) void {
+    var uart = io.Uart{};
+    var writer = uart.writer();
 
-    uart.* = '0';
-    uart.* = 'x';
-    while (num_cpy != 0) {
-        var cur_int: u8 = (@intCast(u8, num_cpy) & 0xf) + 0x30;
-
-        uart.* = cur_int;
-        num_cpy /= 10;
+    if (writer.print("{s}", .{string})) |_| {
+    } else {
+        kpanic("Failed to write");
     }
+
+    while (true) {}
 }

@@ -58,16 +58,11 @@ fn checkMinZig(current: std.SemanticVersion, exe: *std.build.LibExeObjStep) void
 pub const dirs = struct {
     pub const _root = "";
     pub const _cgk7n97voib2 = cache ++ "/../..";
-    pub const _jym0loemma6b = cache ++ "/git/github.com/leapofazzam123/limine";
 };
 
 pub const package_data = struct {
     pub const _cgk7n97voib2 = Package{
         .directory = dirs._cgk7n97voib2,
-    };
-    pub const _jym0loemma6b = Package{
-        .directory = dirs._jym0loemma6b,
-        .pkg = Pkg{ .name = "limine", .source = .{ .path = dirs._jym0loemma6b ++ "/src/main.zig" }, .dependencies = null },
     };
     pub const _root = Package{
         .directory = dirs._root,
@@ -75,11 +70,9 @@ pub const package_data = struct {
 };
 
 pub const packages = &[_]Package{
-    package_data._jym0loemma6b,
 };
 
 pub const pkgs = struct {
-    pub const limine = package_data._jym0loemma6b;
 };
 
 pub const imports = struct {

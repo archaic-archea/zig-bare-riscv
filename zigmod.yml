@@ -3,4 +3,3 @@ name: lsd-zig
 license: MPL-2.0
 description: A basic kernel in zig
 root_dependencies:
-  - src: git https://github.com/leapofazzam123/limine

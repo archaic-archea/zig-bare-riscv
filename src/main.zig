@@ -10,8 +10,6 @@ export fn kmain() void {
     if (@ptrToInt(my_req.response) == 0x1) {
         uart.* = 'h';
         uart.* = 'h';
-        uart.* = 'h';
-        uart.* = 'h';
     } else {
         uart.* = '-';
         uart.* = 'o';

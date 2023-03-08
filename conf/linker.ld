@@ -23,7 +23,6 @@ SECTIONS {
         PROVIDE(__tmp_stack_top = .);
         . += 4096;
         PROVIDE(__scratch_stack = .);
-        . = ALIGN(8);
     }
 
     . = ALIGN(8);

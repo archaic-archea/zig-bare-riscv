@@ -6,17 +6,6 @@ const uart: *volatile u8 = @intToPtr(*volatile u8, 0x1000_0000);
 export fn kmain() void {
     uart.* = 'a';
 
-    if (@ptrToInt(boot_info.response) == 0x0) {
-        uart.* = 'h';
-        uart.* = 'h';
-        uart.* = '\n';
-    } else {
-        uart.* = '-';
-        uart.* = 'o';
-        uart.* = 'k';
-        uart.* = '\n';
-    }
-
     uart.* = '\n';
 
     while (true) {}

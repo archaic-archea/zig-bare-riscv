@@ -3,10 +3,8 @@ rm -rf drive
 mkdir drive
 mkdir drive/boot
 
-zig build-exe src/main.zig src/entry.s -T conf/linker.ld -target riscv64-freestanding -mcpu=generic_rv64+m+a+c -mcmodel small
-mv main drive/boot/zig-kern
+cp zig-out/bin/lsd-zig drive/boot/lsd-zig
 cp conf/spark.cfg drive/boot/spark.cfg
-rm main.o
 
 qemu-system-riscv64 \
     -machine virt \

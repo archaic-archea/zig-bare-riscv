@@ -1,0 +1,6 @@
+id: cgk7n97voib24ulhnbvqb16d22e5qds0wwle2eqi2fffoyl4
+name: lsd-zig
+license: MPL-2.0
+description: A basic kernel in zig
+root_dependencies:
+  - src: git https://github.com/leapofazzam123/limine

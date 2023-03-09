@@ -5,28 +5,19 @@ pub const Uart = struct {
 
     const Writer = std.io.Writer(
         *Uart,
-        error{stringTooLarge},
+        error{Unknown},
         derefWrite,
     );
 
     fn derefWrite(
         self: *Uart,
         string: []const u8,
-    ) error{stringTooLarge}!usize {
-        var index: u32 = 0;
-        var cur_char = string[0];
-
-        while (cur_char != 0) {
-            if (index >= 0x40) {
-                _ = try self.derefWrite("Cannot print strings larger than 0x40");
-                return error.stringTooLarge;
-            }
-            self.address.* = cur_char;
-            index += 1;
-            cur_char = string[index];
+    ) error{Unknown}!usize {
+        for (string) |char| {
+            self.address.* = char;
         }
 
-        return index + 1;
+        return string.len;
     }
 
     pub fn writer(self: *Uart) Writer {

@@ -19,5 +19,4 @@ qemu-system-riscv64 \
     -bios conf/opensbi-riscv64-generic-fw_jump.bin \
     -kernel conf/spark-riscv-sbi-release.bin \
     -serial mon:stdio \
-    -d int,guest_errors \
     -no-reboot
